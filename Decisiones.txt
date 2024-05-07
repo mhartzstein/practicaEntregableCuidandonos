@@ -1,0 +1,36 @@
+Clase Persona:
+Posee los atributos nombre, apellido, direccion, edad, sexo segun mencionados en la consigna. Ademas agregamos el atributo telefono que es necesario para uno de los metodos de SolucionAccidente
+
+Tiene 1 metodo que es convertirseCuidador que se ejecuta cuando una persona acepta (o no) ser cuidador de un transeute. Todos los usuarios son personas, tanto cuidadores como transeunte. Nosotros decidimos que el usuario pasivo o cuidador tiene que estar registrado en la app.
+
+Clase Transeunte:
+Hereda de persona todos sus atributos y metodos.
+Aparte contiene el atributo cuidadoresPotenciales que es una lista de personas que le manda al viaje para solicitar que sean sus cuidadores durante el viaje del transeunte.
+Contiene tambien el atributo notificacionesHabilitadas que es false cuando esta en camino para que desabilite las notificaciones durante el viaje y true cuando no esta en viaje.
+El atributo solucionAccidente guarda el metodo elegido por el transeute en caso de emergencia.
+Por ultimo tiene el atributo viaje donde se guarda el viaje cuando se prepara y mientras esta en curso.
+
+Tiene los metodos prepararViaje que lo que hace es generar un viaje con los destinos selecionados pero no se confirma. Recibe la lista de cuidadoresPotenciales y el viaje que necesita la persona y devuelve false si el viaje no puede realizarse porque ningun cuidador confirmo despues de x minutos.
+
+El metodo cambiarSolucionAccidente es donde el transeute elige que tipo de SolucionAccidente desea
+
+El metodo realizarViaje que recibe el viaje preparado y confirmado y tambien la solucionAccidente deseada y empieza el recorrido
+
+Clase Viaje:
+
+Tiene como atributos una lista de destinos, una lista de cuidadores aceptados y la solucionAccidente elegida por el transeute.
+
+Cuando se prepara el viaje, lo primero que hace el metodo solicitarCuidador es preguntarle a las personas en la lista de cuidadoresPotenciales que le envia el Transeunte y espera que por lo menos 1 confirme para darle el ok. Despues guarda los cuidadores en el atributo cuidadores.
+agregarDestion agrega un nuevo tramo de viaje a la lista de destinos. En este caso el tiempo de demora es entre el nuevo tramo y el tramo anterior
+finalizarViaje es la accion manual de finalizar el viaje por parte del transeunte porque llego a destino final o desea cancelarlo a mitad de camino. Esto no se puede ejecutar cuando se esta caminando en la calle, solo se puede ejecutar al final de un tramo.
+noLlego se activa cuando un tramo avisa con el metodo llegoBien que el transeunte no llego en el tiempo indicado al final del tramo. Cuando esto pasa, se activa el metodo reaccionAccidente de solucion accidente segun el tipo de solucionAccidente que esta guardado en el viaje.
+
+Clase Destino:
+tiene los atributos inicio y final que son direcciones del tramo, tiene distancia (en metros) que se calcula con el metodo calcularDistancia y sus direcciones y por ultimo tenemos el atributo esperaEntreDestinos que guarda el tiempo de espera en minutos del transeunte entre el final del tramo anterior y este tramo.
+Con el metodo calcularTiempoDeLlegada calcula el tiempo esperado de llegada tomando en cuenta la distancia del tramo.
+Por ultimo el metodo llegoBien chequea si la persona llego en el tiempo estimado a su destino o si no llego y tiene que activar solucionAccidente
+
+SolucionAccidente lo pensamos como 1 metodo solo que tiene diferentes algoritmos para los diferentes estados, decidimos usar patron Strategy.
+
+
+
